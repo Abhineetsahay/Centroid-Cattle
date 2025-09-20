@@ -68,32 +68,37 @@ function App() {
 
     if (filteredBreeds.length > 0) {
       return (
-        <div className="z-[100] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4 py-10 border-4 border-red-500 bg-yellow-50" style={{position: 'relative'}}>
-          {filteredBreeds.map(breed => (
-            <div
-              key={breed.id}
-              className="bg-white border-2 border-blue-200 rounded-xl p-6 text-gray-900 shadow-2xl flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-blue-300 hover:border-blue-500"
-              style={{minHeight: '220px'}}
-            >
-              <h3 className="text-lg font-bold mb-2 text-center text-blue-700">{breed.name}</h3>
-              <div className="text-xs text-gray-700 mb-1 text-center">
-                <span className="font-semibold">Location:</span> {breed.locations.join(', ')}
+        <>
+          <div className="text-center text-lg font-semibold text-blue-700 mg z-[101] relative">
+            Showing {filteredBreeds.length} entries
+          </div>
+          <div className="z-[100] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4 py-10 border-4 border-red-500 bg-yellow-50" style={{position: 'relative'}}>
+            {filteredBreeds.map(breed => (
+              <div
+                key={breed.id}
+                className="bg-white border-2 border-blue-200 rounded-xl p-6 text-gray-900 shadow-2xl flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-blue-300 hover:border-blue-500"
+                style={{minHeight: '220px'}}
+              >
+                <h3 className="text-lg font-bold mb-2 text-center text-blue-700">{breed.name}</h3>
+                <div className="text-xs text-gray-700 mb-1 text-center">
+                  <span className="font-semibold">Location:</span> {breed.locations.join(', ')}
+                </div>
+                <div className="text-xs text-gray-700 mb-1">
+                  <span className="font-semibold">Main Uses:</span> {breed.mainUses}
+                </div>
+                <div className="text-xs text-gray-700 mb-1">
+                  <span className="font-semibold">Physical:</span> {breed.physicalDesc}
+                </div>
+                <div className="text-xs text-gray-700 mb-1">
+                  <span className="font-semibold">Species:</span> {breed.species}
+                </div>
+                <div className="text-xs text-gray-700">
+                  <span className="font-semibold">Trait:</span> {breed.breedingTrait}
+                </div>
               </div>
-              <div className="text-xs text-gray-700 mb-1">
-                <span className="font-semibold">Main Uses:</span> {breed.mainUses}
-              </div>
-              <div className="text-xs text-gray-700 mb-1">
-                <span className="font-semibold">Physical:</span> {breed.physicalDesc}
-              </div>
-              <div className="text-xs text-gray-700 mb-1">
-                <span className="font-semibold">Species:</span> {breed.species}
-              </div>
-              <div className="text-xs text-gray-700">
-                <span className="font-semibold">Trait:</span> {breed.breedingTrait}
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </>
       );
     }
 
