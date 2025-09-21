@@ -27,16 +27,18 @@ function App() {
         if (data && Array.isArray(data.body)) {
           const transformedData = data.body.map(breed => ({
             id: breed._id,
-            name: breed.BreedName,
+            name: breed.breedName.en,
             locations: Array.isArray(breed.Location) ? breed.Location : [],
             count:breed.count,
-            mainUses: breed.MainUses,
-            physicalDesc: breed.PhysicalDesc,
-            species: breed.Species,
-            breedingTrait: breed.BreedingTrait,
+            mainUses: breed.mainUses.en,
+            physicalDesc: breed.physicalDesc.en,
+            species: breed.species.en,
+            breedingTrait: breed.breedingTrait.en,
           }));
           setAllBreeds(transformedData);
           setFilteredBreeds(transformedData);
+          console.log(transformedData);
+          
         } else {
           throw new Error('Invalid data format from API.');
         }
