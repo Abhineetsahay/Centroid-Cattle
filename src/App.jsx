@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './App.css'; // Keep your custom CSS
 
 // 🔄 Spinner with animation
@@ -9,6 +10,7 @@ const Spinner = () => (
 );
 
 function App() {
+  const [language, setLanguage] = useState("en");  // Used for API calls
   const [allBreeds, setAllBreeds] = useState([]);
   const [filteredBreeds, setFilteredBreeds] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -19,25 +21,26 @@ function App() {
   useEffect(() => {
     const fetchBreeds = async () => {
       try {
-        const response = await fetch('https://model-backend-nxni.onrender.com/get-breed');
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
-        const data = await response.json();
+        const response = await axios.get('https://model-backend-nxni.onrender.com/get-breed', {
+          headers: {
+            'Accept-Language': language
+          }
+        });
+        const data = response.data;
 
         if (data && Array.isArray(data.body)) {
           const transformedData = data.body.map(breed => ({
             id: breed._id,
-            name: breed.breedName.en,
+            name: breed.breedName,
             locations: Array.isArray(breed.Location) ? breed.Location : [],
             count:breed.count,
-            mainUses: breed.mainUses.en,
-            physicalDesc: breed.physicalDesc.en,
-            species: breed.species.en,
-            breedingTrait: breed.breedingTrait.en,
+            mainUses: breed.mainUses,
+            physicalDesc: breed.physicalDesc,
+            species: breed.species,
+            breedingTrait: breed.breedingTrait,
           }));
           setAllBreeds(transformedData);
           setFilteredBreeds(transformedData);
-          console.log(transformedData);
           
         } else {
           throw new Error('Invalid data format from API.');
@@ -51,7 +54,7 @@ function App() {
     };
 
     fetchBreeds();
-  }, []);
+  }, [language]);
 
   // 🔎 Search filter
   useEffect(() => {
@@ -159,18 +162,27 @@ function App() {
         {/* 🌟 Main */}
         <main className="max-w-6xl mx-auto py-12 px-6 relative z-10">
           <h1 className="text-5xl font-extrabold text-center text-white mb-6 drop-shadow-lg animate-bounce">
-            Explore Cow Breeds 🐄
+            {language === 'en' ? "Explore Cow Breeds 🐄" :
+             language === 'hi' ? "गाय की नस्लें खोजें 🐄" :
+             "ଗାଈ ପ୍ରଜାତି ଅନ୍ୱେଷଣ 🐄"}
           </h1>
           <p className="text-center text-gray-300 mb-10 max-w-2xl mx-auto">
-            Discover cow breeds from across the world. Search by name or location below.
+            {language === 'en' ? "Discover cow breeds from across the world. Search by name or location below." :
+             language === 'hi' ? "दुनिया भर की गाय की नस्लों की खोज करें। नाम या स्थान के आधार पर नीचे खोजें।" :
+             "ବିଶ୍ୱର ଗାଈ ପ୍ରଜାତିଗୁଡ଼ିକ ଖୋଜନ୍ତୁ। ନାମ କିମ୍ବା ସ୍ଥାନ ଅନୁଯାୟୀ ତଳେ ଖୋଜନ୍ତୁ।"}
           </p>
 
           {/* 🔍 Search Bar */}
-          <div className="mb-12 flex justify-center">
-            <div className="relative w-full sm:w-2/3 md:w-1/2">
+          <div className='flex flex-col w-full justify-center items-center'>
+          <div className="mb-12 flex w-full justify-center">
+            <div className="relative w-screen sm:w-2/3 md:w-1/2">
               <input
                 type="text"
-                placeholder="Search cow breeds..."
+                placeholder={
+                  language === 'en' ? "Search cow breeds..." : 
+                  language === 'hi' ? "गाय की नस्लें खोजें..." :
+                  "ଗାଈ ପ୍ରଜାତି ଖୋଜନ୍ତୁ..."
+                }
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full py-4 pl-12 pr-4 rounded-full bg-black/70 text-white text-lg border border-gray-500/40
@@ -180,7 +192,21 @@ function App() {
               <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl">🔍</span>
             </div>
           </div>
-
+          <div className="mt-4 relative">
+              <select 
+                value={language} 
+                onChange={(e)=>setLanguage(e.target.value)}
+                className="py-2 px-4 rounded-full bg-black/70 text-white border border-gray-500/40
+                         focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none transition-all duration-500
+                         hover:border-gray-300 cursor-pointer appearance-none pr-8"
+              >
+                <option value="en">🇬🇧 English</option>
+                <option value="or">🇮🇳 ଓଡ଼ିଆ</option>
+                <option value="hi">🇮🇳 हिंदी</option>
+              </select>
+              <span className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">▼</span>
+            </div>
+          </div>
           {/* 🐮 Cards */}
           {renderContent()}
         </main>
