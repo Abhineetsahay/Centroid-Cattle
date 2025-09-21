@@ -29,6 +29,7 @@ function App() {
             id: breed._id,
             name: breed.BreedName,
             locations: Array.isArray(breed.Location) ? breed.Location : [],
+            count:breed.count,
             mainUses: breed.MainUses,
             physicalDesc: breed.PhysicalDesc,
             species: breed.Species,
@@ -72,7 +73,7 @@ function App() {
           <div className="text-center text-lg font-semibold text-blue-700 mg z-[101] relative">
             Showing {filteredBreeds.length} entries
           </div>
-          <div className="z-[100] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4 py-10 border-4 border-red-500 bg-yellow-50" style={{position: 'relative'}}>
+          <div className="z-[100] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 py-10 border-4 border-red-500 bg-yellow-50" style={{position: 'relative'}}>
             {filteredBreeds.map(breed => (
               <div
                 key={breed.id}
@@ -80,19 +81,22 @@ function App() {
                 style={{minHeight: '220px'}}
               >
                 <h3 className="text-lg font-bold mb-2 text-center text-blue-700">{breed.name}</h3>
-                <div className="text-xs text-gray-700 mb-1 text-center">
+                <div className="text-[16px] text-gray-700 mb-1 text-center">
                   <span className="font-semibold">Location:</span> {breed.locations.join(', ')}
                 </div>
-                <div className="text-xs text-gray-700 mb-1">
+                <div className="text-[16px] text-gray-700 mb-1">
                   <span className="font-semibold">Main Uses:</span> {breed.mainUses}
                 </div>
-                <div className="text-xs text-gray-700 mb-1">
+                 <div className="text-[16px] text-gray-700 mb-1">
+                  <span className="font-semibold">Registered Cattles</span> {breed.count}
+                </div>
+                <div className="text-[16px] text-gray-700 mb-1">
                   <span className="font-semibold">Physical:</span> {breed.physicalDesc}
                 </div>
-                <div className="text-xs text-gray-700 mb-1">
+                <div className="text-[16px] text-gray-700 mb-1">
                   <span className="font-semibold">Species:</span> {breed.species}
                 </div>
-                <div className="text-xs text-gray-700">
+                <div className="text-[16px] text-gray-700">
                   <span className="font-semibold">Trait:</span> {breed.breedingTrait}
                 </div>
               </div>

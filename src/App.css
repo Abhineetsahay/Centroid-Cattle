@@ -1,10 +1,20 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Grid overlay for breed cards section */
+.breed-grid {
+  position: relative;
 }
-
+.breed-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, rgba(120,120,120,0.25) 2px, transparent 2px),
+    linear-gradient(180deg, rgba(120,120,120,0.25) 2px, transparent 2px);
+  background-size: 32px 32px;
+  background-position: 0 0;
+}
+/* Grid overlay for breed cards section */
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -114,28 +124,20 @@ img[src$=".gif"] {
   image-rendering: crisp-edges;
 }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #111; /* Fallback color in case the image fails to load */
-}
-
 /* This is the main container class used in App.jsx.
   It sets the cowhide background image and makes it cover the full screen.
   'background-attachment: fixed' creates the cool effect where the background
   stays still as you scroll.
 */
+
 .app-container {
   min-height: 100vh;
   width: 100%;
-  background-image: url('https://images.unsplash.com/photo-1594114256399-43403b35b4c4?auto=format&fit=crop');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+}
+
+/* Subtle grid background pattern */
+.grid-bg {
+  background-color: #fffbe6;
 }
 
 .mg{
