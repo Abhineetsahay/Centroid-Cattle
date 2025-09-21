@@ -78,7 +78,7 @@ function App() {
           <div className="text-center text-lg font-semibold text-blue-700 mg z-[101] relative">
             Showing {filteredBreeds.length} entries
           </div>
-          <div className="z-[100] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 py-10 border-4 border-red-500 bg-yellow-50" style={{position: 'relative'}}>
+          <div className="z-[100] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 py-10 border-none bg-yellow-50" style={{position: 'relative'}}>
             {filteredBreeds.map(breed => (
               <div
                 key={breed.id}
@@ -147,7 +147,7 @@ function App() {
                 style={{ aspectRatio: '4/1', objectFit: 'contain', width: '100%', maxWidth: '240px', height: 'auto', background: 'rgba(255,255,255,0.05)', borderRadius: '0.5rem' }}
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = '/vite.svg'; // Fallback image
+                  e.target.src = '/vite.svg';
                 }}
               />
             </a>
@@ -162,9 +162,9 @@ function App() {
         {/* 🌟 Main */}
         <main className="max-w-6xl mx-auto py-12 px-6 relative z-10">
           <h1 className="text-5xl font-extrabold text-center text-white mb-6 drop-shadow-lg animate-bounce">
-            {language === 'en' ? "Explore Cow Breeds 🐄" :
-             language === 'hi' ? "गाय की नस्लें खोजें 🐄" :
-             "ଗାଈ ପ୍ରଜାତି ଅନ୍ୱେଷଣ 🐄"}
+            {language === 'en' ? "Centralised Breed Database 🐄" :
+             language === 'hi' ? "केंद्रीयकृत नस्ल डेटाबेस 🐄" :
+             "କେନ୍ଦ୍ରୀୟ ପ୍ରଜାତି ଡାଟାବେସ 🐄"}
           </h1>
           <p className="text-center text-gray-300 mb-10 max-w-2xl mx-auto">
             {language === 'en' ? "Discover cow breeds from across the world. Search by name or location below." :
